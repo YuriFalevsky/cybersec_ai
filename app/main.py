@@ -17,7 +17,7 @@ def run(
 
 app = FastAPI(title="AI-URL-Agent")
 
-@app.post("/analyze")
+@app.post("/analyze") #api
 async def analyze_api(prompt: str = Form(...), url: str = Form(...)):
     return {"result": agent.analyze(prompt, url)}
 
