@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LLM Vulnerability Fuzzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 4px;
+        }
+        .param-group {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>LLM Vulnerability Fuzzer</h1>
+    <form method="POST">
+        <label>Target URL:</label>
+        <input type="text" name="url" required>
+
+        <label>HTTP Method:</label>
+        <select name="method">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+        </select>
+
+        <label>Content-Type:</label>
+        <select name="content_type">
+            <option value="application/x-www-form-urlencoded">application/x-www-form-urlencoded</option>
+            <option value="application/json">application/json</option>
+        </select>
+
+        <label>Cookie (optional):</label>
+        <input type="text" name="cookie">
+
+        <label>Vulnerability Type:</label>
+        <select name="vuln_type">
+            <option value="XSS">XSS</option>
+            <option value="SQL Injection">SQL Injection</option>
+            <option value="Command Injection">Command Injection</option>
+            <option value="SSRF">SSRF</option>
+            <option value="Path Traversal">Path Traversal</option>
+        </select>
+
+        <label>Iterations:</label>
+        <input type="number" name="iterations" value="3" min="1" max="1000">
+
+        <h3>Parameters</h3>
+        <div id="params">
+            <div class="param-group">
+                <label>Name:</label>
+                <input name="param_names" required>
+                <label>Value:</label>
+                <input name="param_values" required>
+                <label>Type:</label>
+                <select name="param_types">
+                    <option value="string">string</option>
+                    <option value="int">int</option>
+                    <option value="email">email</option>
+                </select>
+            </div>
+        </div>
+
+        <button type="button" onclick="addParam()">Add Parameter</button>
+        <button type="submit">Start Fuzzing</button>
+    </form>
+
+    <script>
+        function addParam() {
+            const group = document.createElement("div");
+            group.className = "param-group";
+            group.innerHTML = `
+                <label>Name:</label>
+                <input name="param_names" required>
+                <label>Value:</label>
+                <input name="param_values" required>
+                <label>Type:</label>
+                <select name="param_types">
+                    <option value="string">string</option>
+                    <option value="int">int</option>
+                    <option value="email">email</option>
+                </select>
+            `;
+            document.getElementById("params").appendChild(group);
+        }
+    </script>
+</body>
+</html>
